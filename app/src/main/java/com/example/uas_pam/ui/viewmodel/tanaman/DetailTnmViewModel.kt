@@ -11,6 +11,16 @@ import kotlinx.coroutines.launch
 
 
 
+data class DetailTanamanUiState(
+    val detailEvent: InsertUiEvent = InsertUiEvent(),
+    val isLoading: Boolean = false,
+    val isError: Boolean = false,
+    val errorMessage: String = "",
+){
+    val isUiEventNotEmpty: Boolean
+        get() = detailEvent != InsertUiEvent()
+}
+
 fun Tanaman.toDetailTanamanUiEvent(): InsertUiEvent {
     return InsertUiEvent(
         id_tanaman = id_tanaman,
