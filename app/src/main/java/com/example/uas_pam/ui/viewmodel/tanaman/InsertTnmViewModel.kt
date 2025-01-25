@@ -10,6 +10,17 @@ import com.example.uas_pam.repository.TanamanRepository
 import kotlinx.coroutines.launch
 
 
+data class InsertUiState(
+    val insertUiEvent: InsertUiEvent = InsertUiEvent()
+)
+
+data class InsertUiEvent(
+    val id_tanaman :String = "",
+    val nama_tanaman: String = "",
+    val periode_tanam: String = "",
+    val deskripsi_tanaman: String = "",
+)
+
 fun InsertUiEvent.toTnm(): Tanaman = Tanaman(
     id_tanaman = id_tanaman,
     nama_tanaman = nama_tanaman,
