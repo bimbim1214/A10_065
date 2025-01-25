@@ -10,6 +10,23 @@ import com.example.uas_pam.repository.TanamanRepository
 import kotlinx.coroutines.launch
 
 
+class DetailViewModel (private val tnmRepository: TanamanRepository) : ViewModel(){
+    var uiState by mutableStateOf(DetailTanamanUiState())
+        private set
+
+    fun fetchDetailTanaman(id: String){
+        viewModelScope.launch {
+            uiState = DetailTanamanUiState(isLoading = true)
+            try {
+                val tanaman = tnmRepository.getTanamanById(id)
+                uiState = DetailTanamanUiState(detailEvent = tanaman.toDetailTanamanUiEvent())
+            } catch (e: Exception) {
+                e.printStackTrace()
+                uiState = DetailTanamanUiState(isError = true,  errorMessage = "Failes to fetch detail: ${e.message}")
+            }
+        }
+    }
+}
 
 data class DetailTanamanUiState(
     val detailEvent: InsertUiEvent = InsertUiEvent(),
