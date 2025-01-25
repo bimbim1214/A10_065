@@ -18,3 +18,25 @@ sealed class HomeUiState{
     object Loading : HomeUiState()
 }
 
+class HomeViewModel(private val tnm: TanamanRepository): ViewModel(){
+    var tnmUiState: HomeUiState by mutableStateOf(HomeUiState.Loading)
+        private set
+
+    init {
+        getTnm()
+    }
+
+    fun getTnm(){
+        viewModelScope.launch {
+            tnmUiState = HomeUiState.Loading
+            tnmUiState = try {
+                HomeUiState.Success(tnm.getTanaman().data)
+            }catch (e: IOException){
+                HomeUiState.Error
+            }catch (e: HttpException){
+                HomeUiState.Error
+            }
+        }
+    }
+
+}
