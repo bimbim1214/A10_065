@@ -9,6 +9,26 @@ import com.example.uas_pam.model.Tanaman
 import com.example.uas_pam.repository.TanamanRepository
 import kotlinx.coroutines.launch
 
+class InsertViewModel(private val tnm: TanamanRepository): ViewModel(){
+    var uiState by mutableStateOf(InsertUiState())
+        private set
+
+    fun updateInsertTnmState(insertUiEvent: InsertUiEvent){
+        uiState = InsertUiState(insertUiEvent = insertUiEvent)
+    }
+
+    suspend fun insertTnm(){
+        viewModelScope.launch {
+            try {
+                tnm.insertTanaman(uiState.insertUiEvent.toTnm())
+            }catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+}
+
+
 
 data class InsertUiState(
     val insertUiEvent: InsertUiEvent = InsertUiEvent()
