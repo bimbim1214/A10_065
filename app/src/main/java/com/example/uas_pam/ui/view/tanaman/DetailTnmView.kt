@@ -33,6 +33,95 @@ import com.example.uas_pam.ui.viewmodel.tanaman.DetailViewModel
 import com.example.uas_pam.ui.viewmodel.PenyediaViewModel
 
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DetailScreen(
+    id: String,
+    onEditClick: (String) -> Unit = { },
+    onDeleteClick: (String) -> Unit = { },
+    onBackClick: () -> Unit = { },
+    modifier: Modifier = Modifier,
+    viewModel: DetailViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val tanaman = viewModel.uiState.detailEvent
+
+    LaunchedEffect(id) {
+        viewModel.fetchDetailTanaman(id)
+    }
+
+    val isLoading = viewModel.uiState.isLoading
+    val isError = viewModel.uiState.isError
+    val errorMessage = viewModel.uiState.errorMessage
+
+    Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = { Text(DestinasiDetail.titleRes) },
+                navigationIcon = {
+                    IconButton(onClick = { onBackClick() }) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors()
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { onEditClick(tanaman.id_tanaman) },
+            ) {
+                Icon(Icons.Default.Edit, contentDescription = "Edit Data")
+            }
+        },
+        content = { paddingValues ->
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+            ) {
+                if (isLoading) {
+                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                }
+                else if (isError) {
+                    Text(
+                        text = errorMessage,
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
+                else if (viewModel.uiState.isUiEventNotEmpty) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                        horizontalAlignment = Alignment.Start
+                    ) {
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            elevation = CardDefaults.cardElevation(8.dp)
+                        ) {
+                            Column(
+                                modifier = Modifier.padding(16.dp),
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                // Use Row for each detail with label and value aligned
+                                DetailRow(label = "ID Tanaman", value = tanaman.id_tanaman)
+                                DetailRow(label = "Nama Tanaman", value = tanaman.nama_tanaman)
+                                DetailRow(label = "Periode Tanan", value = tanaman.periode_tanam)
+                                DetailRow(label = "Deskripsi Tanaman", value = tanaman.deskripsi_tanaman)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    )
+}
+
+
 @Composable
 fun DetailRow(label: String, value: String) {
     Row(
