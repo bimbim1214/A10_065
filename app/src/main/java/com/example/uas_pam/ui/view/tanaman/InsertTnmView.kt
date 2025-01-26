@@ -31,6 +31,34 @@ import com.example.uas_pam.ui.viewmodel.PenyediaViewModel
 import kotlinx.coroutines.launch
 
 
+
+@Composable
+fun EntryBody(
+    insertUiState: InsertUiState,
+    onTanamanValueChange: (InsertUiEvent) -> Unit,
+    onSaveClick: () -> Unit,
+    modifier: Modifier = Modifier
+){
+    Column (
+        verticalArrangement = Arrangement.spacedBy(18.dp),
+        modifier = modifier.padding(12.dp)
+    ){
+        FormInput(
+            insertUiEvent = insertUiState.insertUiEvent,
+            onValueChange = onTanamanValueChange,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Button(
+            onClick = onSaveClick,
+            shape = MaterialTheme.shapes.small,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = "Simpan")
+        }
+    }
+}
+
+
 @Composable
 fun FormInput(
     insertUiEvent: InsertUiEvent,
