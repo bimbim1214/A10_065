@@ -47,7 +47,10 @@ import com.example.uas_pam.ui.viewmodel.tanaman.HomeUiState
 import com.example.uas_pam.ui.viewmodel.tanaman.HomeViewModel
 import com.example.uas_pam.ui.viewmodel.PenyediaViewModel
 
-
+object DestinasiHomeTanaman : DestinasiNavigasi {
+    override val route = "home_Tanaman"
+    override val titleRes = "Home Tanaman"
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
