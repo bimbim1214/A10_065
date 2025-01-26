@@ -50,6 +50,35 @@ import com.example.uas_pam.ui.viewmodel.PenyediaViewModel
 
 
 @Composable
+fun TnmLayout(
+    tanaman: List<Tanaman>,
+    modifier: Modifier = Modifier,
+    onDetailClick: (Tanaman) -> Unit,
+    onEditClick: (Tanaman) -> Unit,
+    onDeleteClick: (Tanaman) -> Unit = {}
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 16.dp, vertical = 16.dp), // Padding jika diperlukan
+        verticalArrangement = Arrangement.spacedBy(12.dp) // Jarak antar elemen
+    ) {
+        tanaman.forEach { tanaman ->
+            TnmCard(
+                tanaman = tanaman,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onDetailClick(tanaman) },
+                onDeleteClick = { onDeleteClick(tanaman) },
+                onEditClick = { onEditClick(tanaman) },
+                onDetailClick = { onDetailClick(tanaman) }
+            )
+        }
+    }
+}
+
+@Composable
 fun TnmCard(
     tanaman: Tanaman,
     modifier: Modifier = Modifier,
