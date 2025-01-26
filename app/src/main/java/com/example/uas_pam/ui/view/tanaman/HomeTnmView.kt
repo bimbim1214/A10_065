@@ -50,6 +50,46 @@ import com.example.uas_pam.ui.viewmodel.PenyediaViewModel
 
 
 @Composable
+fun HomeStatus(
+    homeUiState: HomeUiState,
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier,
+    onDeleteClick: (Tanaman) -> Unit = {},
+    onDetailClick: (String) -> Unit,
+    onEditClick: (String) -> Unit
+){
+    when (homeUiState){
+        is HomeUiState.Loading -> onLoadinng(modifier = modifier.fillMaxSize())
+
+        is HomeUiState.Success ->
+            if (homeUiState.tanaman.isEmpty()){
+                return Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ){
+                    Text(text = "Tidak ada data Tanaman")
+                }
+            } else {
+                TnmLayout(
+                    tanaman = homeUiState.tanaman,
+                    modifier = modifier
+                        .fillMaxWidth(),
+                    onDetailClick = {
+                        onDetailClick(it.id_tanaman)
+                    },
+                    onDeleteClick = {
+                        onDeleteClick(it)
+                    },
+                    onEditClick = {
+                        onEditClick(it.id_tanaman)
+                    }
+                )
+            }
+        is HomeUiState.Error -> onError(retryAction, modifier = modifier.fillMaxSize())
+    }
+}
+
+@Composable
 fun onLoadinng(modifier: Modifier = Modifier){
     Image(
         modifier = modifier.size(100.dp),
