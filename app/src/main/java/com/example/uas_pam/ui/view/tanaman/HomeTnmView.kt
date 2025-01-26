@@ -49,6 +49,64 @@ import com.example.uas_pam.ui.viewmodel.PenyediaViewModel
 
 
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HomeScreen(
+    navigateToItemEnty: () -> Unit,
+    modifier: Modifier = Modifier,
+    navigateBack: () -> Unit,
+    onDetailClick: (String) -> Unit = {},
+    onEditClick: (String) -> Unit,
+    viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
+    Scaffold(
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            CostumeTopAppBar(
+                title = DestinasiHomeTanaman.titleRes,
+                canNavigateBack = true,
+                scrollBehavior = scrollBehavior,
+                onRefresh = {
+                    viewModel.getTnm()
+                },
+                navigateUP = navigateBack
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = navigateToItemEnty,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(18.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Add Tanaman"
+                )
+            }
+        },
+    ) { innerPadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            HomeStatus(
+                homeUiState = viewModel.tnmUiState,
+                retryAction = { viewModel.getTnm() },
+                onDetailClick = onDetailClick,
+                onDeleteClick = {
+                    viewModel.deleteTnm(it.id_tanaman)
+                    viewModel.getTnm()
+                },
+                onEditClick = onEditClick
+            )
+        }
+    }
+}
+
+
 @Composable
 fun HomeStatus(
     homeUiState: HomeUiState,
