@@ -30,6 +30,10 @@ import com.example.uas_pam.ui.viewmodel.tanaman.InsertViewModel
 import com.example.uas_pam.ui.viewmodel.PenyediaViewModel
 import kotlinx.coroutines.launch
 
+object DestinasiEntry : DestinasiNavigasi {
+    override val route = "item_entryTanaman"
+    override val titleRes = "Form Tanaman"
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
