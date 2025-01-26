@@ -31,6 +31,44 @@ import com.example.uas_pam.ui.viewmodel.PenyediaViewModel
 import kotlinx.coroutines.launch
 
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun EntryTnmScreen(
+    navigateBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: InsertViewModel = viewModel(factory = PenyediaViewModel.Factory)
+){
+    val coroutineScope = rememberCoroutineScope()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
+    Scaffold (
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            CostumeTopAppBar(
+                title = DestinasiEntry.titleRes,
+                canNavigateBack = true,
+                scrollBehavior = scrollBehavior,
+                navigateUP = navigateBack
+            )
+        }
+    ){  innerPadding ->
+        EntryBody(
+            insertUiState = viewModel.uiState,
+            onTanamanValueChange = viewModel::updateInsertTnmState,
+            onSaveClick = {
+                coroutineScope.launch {
+                    viewModel.insertTnm()
+                    navigateBack()
+                }
+            },
+            modifier = Modifier
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
+                .fillMaxWidth()
+        )
+    }
+}
+
 
 @Composable
 fun EntryBody(
