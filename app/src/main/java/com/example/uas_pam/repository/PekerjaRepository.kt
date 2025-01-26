@@ -13,3 +13,39 @@ interface PekerjaRepository{
     suspend fun getPekerjaById(idpekerja: String): Pekerja
 }
 
+class NetworkPekerjaRepository(
+    private val pekerjeApiService: PekerjaService
+): PekerjaRepository {
+    override suspend fun insertPekerja(pekerja: Pekerja) {
+        pekerjeApiService.insertPekerja(pekerja)
+    }
+
+    override suspend fun updatePekerja(idpekerja: String, pekerja: Pekerja) {
+        pekerjeApiService.updatePekerja(idpekerja, pekerja)
+    }
+
+    override suspend fun deletePekerja(idpekerja: String) {
+        try {
+            val response = pekerjeApiService.deletePekerja(idpekerja)
+            if (!response.isSuccessful) {
+                throw IOException(
+                    "Failed to delete pekerja. HTTP Status code: +" +
+                            "${response.code()}"
+                )
+            } else {
+                response.message()
+                println(response.message())
+            }
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    override suspend fun getPekerja(): PekerjaResponse {
+        return pekerjeApiService.getPekerja()
+    }
+
+    override suspend fun getPekerjaById(idpekerja: String): Pekerja {
+        return pekerjeApiService.getPekerjaById(idpekerja).data
+    }
+}
