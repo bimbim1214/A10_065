@@ -110,6 +110,25 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
                 )
             }
         }
+        composable(
+            route = DestinasiUpdate.routesWithArg,
+            arguments = listOf(
+                navArgument(DestinasiUpdate.ID) { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments?.getString(DestinasiUpdate.ID)
+            id?.let {
+                UpdateScreen(
+                    onBack = { navController.popBackStack() },
+                    onNavigate = {
+                        navController.navigate(DestinasiHomeTanaman.route) {
+                            popUpTo(DestinasiHomeTanaman.route) { inclusive = true }
+                        }
+                    }
+                )
+            }
+        }
+
 
     }
 }
