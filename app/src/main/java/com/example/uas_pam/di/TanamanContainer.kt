@@ -32,4 +32,18 @@ class KebunContainer : AppContainer {
         .baseUrl(baseUrl).build()
 
 
+    private val tanamanService : TanamanService by lazy {
+        retrofit.create(TanamanService::class.java)
+    }
+    private val pekerjaService: PekerjaService by lazy {
+        retrofit.create(PekerjaService::class.java)
+    }
+    private val aktivitasService: AktivitasService by lazy {
+        retrofit.create(AktivitasService::class.java)
+    }
+    private val panenService: PanenService by lazy {
+        retrofit.create(PanenService::class.java)
+    }
+
+
 }
