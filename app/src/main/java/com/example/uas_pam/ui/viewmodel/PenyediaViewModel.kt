@@ -23,6 +23,17 @@ import com.example.uas_pam.ui.viewmodel.tanaman.HomeViewModel
 import com.example.uas_pam.ui.viewmodel.tanaman.InsertViewModel
 import com.example.uas_pam.ui.viewmodel.tanaman.UpdateTnmViewModel
 
+object PenyediaViewModel {
+    val Factory = viewModelFactory {
+        initializer { HomeViewModel(aplikasiKebun().container.tanamanRepository) }
+        initializer { InsertViewModel(aplikasiKebun().container.tanamanRepository) }
+        initializer { DetailViewModel(aplikasiKebun().container.tanamanRepository) }
+        initializer {
+            UpdateTnmViewModel(createSavedStateHandle(), aplikasiKebun().container.tanamanRepository)
+        }
+
+    }
+}
 
 fun CreationExtras.aplikasiKebun(): KebunAplications =
     (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as KebunAplications)
