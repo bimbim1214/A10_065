@@ -49,5 +49,33 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
         navController = navController,
         startDestination = DestinasiHomeTanaman.route,
         modifier = Modifier,
-    )
+    ) {
+//        composable(
+//            route = DestinasiHomeAwal.route
+//        ) {
+//            HomeScreenAwal(
+//                onTanamanClick = {navController.navigate(DestinasiHomeTanaman.route) },
+//                onPekerjaClick = {navController.navigate(DestinasiHomePekerja.route)},
+//                onAktivitasClick = {navController.navigate(DestinasiHomeAktivitas.route)},
+//                onPanenClick = {navController.navigate(DestinasiHomePanen.route)}
+//
+//            )
+//        }
+
+        composable(DestinasiHomeTanaman.route) {
+            HomeScreen(
+                navigateToItemEnty = { navController.navigate(DestinasiEntry.route) },
+                onDetailClick = {
+                    navController.navigate("${DestinasiDetail.route}/$it")
+                },
+                onEditClick = {navController.navigate("${DestinasiUpdate.route}/$it")},
+                navigateBack = {navController.navigate(DestinasiHomeAwal.route)},
+                onTanamanClick = {navController.navigate(DestinasiHomeTanaman.route) },
+                onPekerjaClick = {navController.navigate(DestinasiHomePekerja.route)},
+                onAktivitasClick = {navController.navigate(DestinasiHomeAktivitas.route)},
+                onPanenClick = {navController.navigate(DestinasiHomePanen.route)}
+            )
+        }
+
+    }
 }
