@@ -1,0 +1,53 @@
+package com.example.uas_pam.ui.navigation
+
+import DestinasiHomeAwal
+import HomeScreenAwal
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.uas_pam.ui.view.aktivitas.DestinasiDetailAktivitas
+import com.example.uas_pam.ui.view.aktivitas.DestinasiEntryAktivitas
+import com.example.uas_pam.ui.view.aktivitas.DestinasiHomeAktivitas
+import com.example.uas_pam.ui.view.aktivitas.DestinasiUpdateAktivitas
+import com.example.uas_pam.ui.view.aktivitas.DetailScreenAktivitas
+import com.example.uas_pam.ui.view.aktivitas.EntryAksScreen
+import com.example.uas_pam.ui.view.aktivitas.HomeViewAks
+import com.example.uas_pam.ui.view.aktivitas.UpdateScreenAktivitas
+import com.example.uas_pam.ui.view.catatanpanen.DestinasiDetailPanen
+import com.example.uas_pam.ui.view.catatanpanen.DestinasiEntryPanen
+import com.example.uas_pam.ui.view.catatanpanen.DestinasiHomePanen
+import com.example.uas_pam.ui.view.catatanpanen.DestinasiUpdatePanen
+import com.example.uas_pam.ui.view.catatanpanen.DetailScreenPanen
+import com.example.uas_pam.ui.view.catatanpanen.EntryPnnScreen
+import com.example.uas_pam.ui.view.catatanpanen.HomeViewPnn
+import com.example.uas_pam.ui.view.catatanpanen.UpdateScreenPanen
+import com.example.uas_pam.ui.view.pekerja.DestinasiDetailPekerja
+import com.example.uas_pam.ui.view.pekerja.DestinasiEntryPekerja
+import com.example.uas_pam.ui.view.pekerja.DestinasiHomePekerja
+import com.example.uas_pam.ui.view.pekerja.DestinasiUpdatePekerja
+import com.example.uas_pam.ui.view.pekerja.DetailScreenPekerja
+import com.example.uas_pam.ui.view.pekerja.EntryPkjScreen
+import com.example.uas_pam.ui.view.pekerja.HomePKJScreen
+import com.example.uas_pam.ui.view.pekerja.UpdateScreenPekerja
+import com.example.uas_pam.ui.view.tanaman.DestinasiDetail
+import com.example.uas_pam.ui.view.tanaman.DestinasiEntry
+import com.example.uas_pam.ui.view.tanaman.DestinasiHomeTanaman
+import com.example.uas_pam.ui.view.tanaman.DestinasiUpdate
+import com.example.uas_pam.ui.view.tanaman.DetailScreen
+import com.example.uas_pam.ui.view.tanaman.EntryTnmScreen
+import com.example.uas_pam.ui.view.tanaman.HomeScreen
+import com.example.uas_pam.ui.view.tanaman.UpdateScreen
+
+@Composable
+fun PengelolaHalaman(navController: NavHostController = rememberNavController()){
+    NavHost(
+        navController = navController,
+        startDestination = DestinasiHomeTanaman.route,
+        modifier = Modifier,
+    )
+}
