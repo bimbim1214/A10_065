@@ -76,6 +76,16 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
                 onPanenClick = {navController.navigate(DestinasiHomePanen.route)}
             )
         }
+        composable(DestinasiEntry.route) {
+            EntryTnmScreen(navigateBack = {
+                navController.navigate(DestinasiHomeTanaman.route) {
+                    popUpTo(DestinasiHomeTanaman.route)
+                    {
+                        inclusive = true
+                    }
+                }
+            })
+        }
 
     }
 }
