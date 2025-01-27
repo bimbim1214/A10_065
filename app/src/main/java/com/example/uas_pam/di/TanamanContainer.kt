@@ -46,4 +46,16 @@ class KebunContainer : AppContainer {
     }
 
 
+    override val tanamanRepository: TanamanRepository by lazy {
+        NetworkTanamanRepository(tanamanService)
+    }
+    override val pekerjaRepository: PekerjaRepository by lazy {
+        NetworkPekerjaRepository(pekerjaService)
+    }
+    override val aktivitasPertanianRepository: AktivitasPertanianRepository by lazy {
+        NetworkAktivitasRepository(aktivitasService)
+    }
+    override val catatanPanenRepository: CatatanPanenRepository by lazy {
+        NetworkCatatanPanenRepository(panenService)
+    }
 }
