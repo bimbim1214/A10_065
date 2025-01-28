@@ -46,7 +46,12 @@ object PenyediaViewModel {
             UpdateViewModelAks(createSavedStateHandle(), aplikasiKebun().container.aktivitasPertanianRepository)
         }
 
-
+        initializer { HomePanenViewModel(aplikasiKebun().container.catatanPanenRepository) }
+        initializer { InsertPanenViewModel(aplikasiKebun().container.catatanPanenRepository) }
+        initializer { DetailPanenViewModel(aplikasiKebun().container.catatanPanenRepository) }
+        initializer {
+            UpdatePanenViewModel(createSavedStateHandle(), aplikasiKebun().container.catatanPanenRepository)
+        }
     }
 }
 
