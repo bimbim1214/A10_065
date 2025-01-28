@@ -13,4 +13,9 @@ import kotlinx.coroutines.launch
 class UpdateViewModelPekerja (
     savedStateHandle: SavedStateHandle,
     private val pekerjaRepository: PekerjaRepository
-)
+) : ViewModel(){
+    var updatePKJUiState by mutableStateOf(InsertPKJUiState())
+        private set
+
+
+}
