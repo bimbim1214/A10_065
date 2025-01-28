@@ -33,6 +33,32 @@ import kotlinx.coroutines.launch
 
 
 @Composable
+fun EntryBodyPekerja(
+    insertPKJUiState: InsertPKJUiState,
+    onPekerjaValueChange: (InsertPKJEvent) -> Unit,
+    onSaveClick: () -> Unit,
+    modifier: Modifier = Modifier
+){
+    Column (
+        verticalArrangement = Arrangement.spacedBy(18.dp),
+        modifier = modifier.padding(12.dp)
+    ){
+        FormInputPekerja(
+            insertPKJEvent = insertPKJUiState.insertPKJUiEvent,
+            onValueChange = onPekerjaValueChange,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Button(
+            onClick = onSaveClick,
+            shape = MaterialTheme.shapes.small,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = "Simpan")
+        }
+    }
+}
+
+@Composable
 fun FormInputPekerja(
     insertPKJEvent: InsertPKJEvent,
     modifier: Modifier = Modifier,
