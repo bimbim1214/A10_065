@@ -61,6 +61,48 @@ import com.example.uas_pam.ui.viewmodel.pekerja.HomePKJUiState
 import com.example.uas_pam.ui.viewmodel.pekerja.HomePKJViewModel
 
 
+
+@Composable
+fun HomePKJStatus(
+    homePKJUiState: HomePKJUiState,
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier,
+    onDeleteClick: (Pekerja) -> Unit = {},
+    onDetailClick: (String) -> Unit,
+    onEditClick: (String) -> Unit
+){
+    when (homePKJUiState){
+        is HomePKJUiState.Loading -> onLoadinng(modifier = modifier.fillMaxSize())
+
+        is HomePKJUiState.Success ->
+            if (homePKJUiState.pekerja.isEmpty()){
+                return Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ){
+                    Text(text = "Tidak ada data Pekerja")
+                }
+            } else {
+                PkjLayout(
+                    pekerja = homePKJUiState.pekerja,
+                    modifier = modifier.fillMaxSize(),
+                    onDetailClick = {
+                        onDetailClick(it.id_pekerja)
+                    },
+                    onDeleteClick = {
+                        onDeleteClick(it)
+                    },
+                    onEditClick = {
+                        onEditClick(it.id_pekerja)
+                    }
+                )
+            }
+        is  HomePKJUiState.Error -> onError(retryAction, modifier = modifier.fillMaxSize())
+    }
+}
+
+
+
 @Composable
 fun onLoadinng(modifier: Modifier = Modifier){
     Image(
