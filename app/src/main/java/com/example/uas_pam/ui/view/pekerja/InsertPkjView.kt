@@ -31,6 +31,10 @@ import com.example.uas_pam.ui.viewmodel.pekerja.InsertPKJUiState
 import com.example.uas_pam.ui.viewmodel.pekerja.InsertPKJViewModel
 import kotlinx.coroutines.launch
 
+object DestinasiEntryPekerja : DestinasiNavigasi {
+    override val route = "item_entry"
+    override val titleRes = "Form Pekrerja"
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
