@@ -30,6 +30,12 @@ import com.example.uas_pam.ui.navigation.DestinasiNavigasi
 import com.example.uas_pam.ui.viewmodel.PenyediaViewModel
 import com.example.uas_pam.ui.viewmodel.pekerja.DetailPKJViewModel
 
+object DestinasiDetailPekerja: DestinasiNavigasi {
+    override val route = "detailPkr"
+    override val titleRes = "Detail Pekerja"
+    const val ID = "id"
+    val routeWithArgs = "$route/{$ID}"
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
