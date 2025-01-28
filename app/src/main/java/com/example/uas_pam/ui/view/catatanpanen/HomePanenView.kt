@@ -52,6 +52,64 @@ import com.example.uas_pam.ui.viewmodel.catatanpanen.HomePanenUiState
 import com.example.uas_pam.ui.viewmodel.catatanpanen.HomePanenViewModel
 
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HomeViewPnn(
+    navigateToItemEnty: () -> Unit,
+    modifier: Modifier = Modifier,
+    navigateBack: () -> Unit,
+    onDetailClick: (String) -> Unit = {},
+    onEditClick: (String) -> Unit,
+    viewModel: HomePanenViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
+    Scaffold(
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            CostumeTopAppBar(
+                title = DestinasiHomePanen.titleRes,
+                canNavigateBack = true,
+                scrollBehavior = scrollBehavior,
+                onRefresh = {
+                    viewModel.getPnn()
+                },
+                navigateUP = navigateBack,
+                subtitle = "Selamat Datang"
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = navigateToItemEnty,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(18.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Add Tanaman"
+                )
+            }
+        },
+    ) { innerPadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            HomePnnStatus(
+                homePanenUiState = viewModel.pnnUiState,
+                retryAction = { viewModel.getPnn() },
+                onDetailClick = onDetailClick,
+                onDeleteClick = {
+                    viewModel.deletePnn(it.id_panen)
+                    viewModel.getPnn()
+                },
+                onEditClick = onEditClick
+            )
+        }
+    }
+}
+
 @Composable
 fun HomePnnStatus(
     homePanenUiState: HomePanenUiState,
