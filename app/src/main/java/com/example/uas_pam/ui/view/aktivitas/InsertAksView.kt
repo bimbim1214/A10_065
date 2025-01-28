@@ -26,6 +26,32 @@ import kotlinx.coroutines.launch
 import com.example.uas_pam.R
 
 
+@Composable
+fun EntryBodyAks(
+    insertAksUiState: InsertAksUiState,
+    onAktivitasValueChange: (InsertAksUiEvent) -> Unit,
+    onSaveClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(18.dp),
+        modifier = modifier.padding(12.dp)
+    ) {
+        FormInputAks(
+            insertAksUiEvent = insertAksUiState.insertAksUiEvent,
+            onValueChange = onAktivitasValueChange,
+            modifier = Modifier.fillMaxWidth(),
+
+        )
+        Button(
+            onClick = onSaveClick,
+            shape = MaterialTheme.shapes.small,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = "Simpan")
+        }
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
