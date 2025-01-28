@@ -199,4 +199,18 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
 
 
 
+
+        //Home Panen
+        composable(DestinasiHomePanen.route) {
+            HomeViewPnn(
+                navigateToItemEnty = { navController.navigate(DestinasiEntryPanen.route) },
+                onDetailClick = {
+                    navController.navigate("${DestinasiDetailPanen.route}/$it")
+                },
+                onEditClick = {navController.navigate("${DestinasiUpdatePanen.route}/$it")},
+                navigateBack = {navController.popBackStack()}
+            )
+        }
+
+    }
 }
