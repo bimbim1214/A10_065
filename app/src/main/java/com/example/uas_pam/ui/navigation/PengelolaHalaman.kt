@@ -154,5 +154,29 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
                 }
             })
         }
+        composable(
+            DestinasiDetailPekerja.routeWithArgs,
+            arguments = listOf(
+                navArgument(DestinasiDetailPekerja.ID) {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            val id = it.arguments?.getString(DestinasiDetailPekerja.ID)
+            id?.let { nim ->
+                DetailScreenPekerja(
+                    onBackClick = {
+                        navController.popBackStack()
+                    },
+//                    onEditClick = {
+//                        navController.navigate("${DestinasiUpdate.route}/$id")
+//                    },
+                    idpekerja = id,
+                    onDeleteClick = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+        }
 
 }
