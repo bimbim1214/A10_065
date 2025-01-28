@@ -198,6 +198,17 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
         }
 
 
+        //Pengelola halaman Aktivitas
+        composable(DestinasiHomeAktivitas.route) {
+            HomeViewAks(
+                navigateToItemEnty = { navController.navigate(DestinasiEntryAktivitas.route) },
+                onDetailClick = {
+                    navController.navigate("${DestinasiDetailAktivitas.route}/$it")
+                },
+                onEditClick = {navController.navigate("${DestinasiUpdateAktivitas.route}/$it")},
+                navigateBack = {navController.popBackStack()}
+            )
+        }
 
 
         //Home Panen
