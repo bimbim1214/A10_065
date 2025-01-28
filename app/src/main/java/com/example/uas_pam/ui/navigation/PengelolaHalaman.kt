@@ -144,5 +144,15 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
                 navigateBack = {navController.popBackStack()},
             )
         }
+        composable(DestinasiEntryPekerja.route) {
+            EntryPkjScreen(navigateBack = {
+                navController.navigate(DestinasiHomePekerja.route) {
+                    popUpTo(DestinasiHomePekerja.route)
+                    {
+                        inclusive = true
+                    }
+                }
+            })
+        }
 
 }
