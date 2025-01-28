@@ -59,6 +59,42 @@ import com.example.uas_pam.ui.viewmodel.tanaman.HomeUiState
 import com.example.uas_pam.ui.viewmodel.tanaman.HomeViewModel
 
 
+
+@Composable
+fun onLoadinng(modifier: Modifier = Modifier){
+    Image(
+        modifier = modifier.size(100.dp),
+        painter = painterResource(R.drawable.loading),
+        contentDescription = stringResource(R.string.loading)
+    )
+}
+
+@Composable
+fun onError(
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier
+){
+    Column (
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.error),
+            contentDescription = "Error Image",
+            modifier = Modifier
+                .size(100.dp) //atur ukuran gambar menajdi 100x100
+        )
+        Text(
+            text = stringResource(R.string.loading_failed),
+            modifier = Modifier.padding(16.dp)
+        )
+        Button(onClick = retryAction) {
+            Text(stringResource(R.string.retry))
+        }
+    }
+}
+
 @Composable
 fun AksLayout(
     aktivitasPertanian: List<AktivitasPertanian>,
