@@ -53,6 +53,35 @@ import com.example.uas_pam.ui.viewmodel.catatanpanen.HomePanenViewModel
 
 
 @Composable
+fun PnnLayout(
+    catatanPanen: List<CatatanPanen>,
+    modifier: Modifier = Modifier,
+    onDetailClick: (CatatanPanen) -> Unit,
+    onEditClick: (CatatanPanen) -> Unit,
+    onDeleteClick: (CatatanPanen) -> Unit = {}
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 16.dp, vertical = 16.dp), // Padding jika diperlukan
+        verticalArrangement = Arrangement.spacedBy(12.dp) // Jarak antar elemen
+    ) {
+        catatanPanen.forEach { catatanPanen ->
+            PnnCard(
+                catatanPanen = catatanPanen,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onDetailClick(catatanPanen) },
+                onDeleteClick = { onDeleteClick(catatanPanen) },
+                onEditClick = { onEditClick(catatanPanen) },
+                onDetailClick = { onDetailClick(catatanPanen) }
+            )
+        }
+    }
+}
+
+@Composable
 fun PnnCard(
     catatanPanen: CatatanPanen,
     modifier: Modifier = Modifier,
