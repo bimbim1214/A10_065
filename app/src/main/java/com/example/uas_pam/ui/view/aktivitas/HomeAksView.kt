@@ -59,6 +59,35 @@ import com.example.uas_pam.ui.viewmodel.tanaman.HomeUiState
 import com.example.uas_pam.ui.viewmodel.tanaman.HomeViewModel
 
 
+@Composable
+fun AksLayout(
+    aktivitasPertanian: List<AktivitasPertanian>,
+    modifier: Modifier = Modifier,
+    onDetailClick: (AktivitasPertanian) -> Unit,
+    onEditClick: (AktivitasPertanian) -> Unit,
+    onDeleteClick: (AktivitasPertanian) -> Unit = {}
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 16.dp, vertical = 16.dp), // Padding jika diperlukan
+        verticalArrangement = Arrangement.spacedBy(12.dp) // Jarak antar elemen
+    ) {
+        aktivitasPertanian.forEach { aktivitasPertanian ->
+            AksCard(
+                aktivitasPertanian = aktivitasPertanian,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onDetailClick(aktivitasPertanian) },
+                onDeleteClick = { onDeleteClick(aktivitasPertanian) },
+                onEditClick = { onEditClick(aktivitasPertanian) },
+                onDetailClick = { onDetailClick(aktivitasPertanian) }
+            )
+        }
+    }
+}
+
 
 @Composable
 fun AksCard(
