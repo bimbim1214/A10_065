@@ -19,5 +19,10 @@ class UpdateViewModelPekerja (
 
     private val idPkj: String = checkNotNull(savedStateHandle[DestinasiUpdatePekerja.ID])
 
+    init {
+        viewModelScope.launch {
+            updatePKJUiState = pekerjaRepository.getPekerjaById(idPkj)
+                .toUiStatePkj()
+        }
+    }
 
-}
