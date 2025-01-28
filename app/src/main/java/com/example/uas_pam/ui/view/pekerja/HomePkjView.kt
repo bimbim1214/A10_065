@@ -62,6 +62,35 @@ import com.example.uas_pam.ui.viewmodel.pekerja.HomePKJViewModel
 
 
 @Composable
+fun PkjLayout(
+    pekerja:List<Pekerja>,
+    modifier: Modifier = Modifier,
+    onDetailClick: (Pekerja) -> Unit,
+    onEditClick: (Pekerja) -> Unit,
+    onDeleteClick: (Pekerja) -> Unit = {}
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 16.dp, vertical = 16.dp), // Padding jika diperlukan
+        verticalArrangement = Arrangement.spacedBy(12.dp) // Jarak antar elemen
+    ) {
+        pekerja.forEach { pekerja ->
+            PkjCard(
+                pekerja = pekerja,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onDetailClick(pekerja) },
+                onDeleteClick = { onDeleteClick(pekerja) },
+                onEditClick = { onEditClick(pekerja) },
+                onDetailClick = { onDetailClick(pekerja) }
+            )
+        }
+    }
+}
+
+@Composable
 fun PkjCard(
     pekerja: Pekerja,
     modifier: Modifier = Modifier,
