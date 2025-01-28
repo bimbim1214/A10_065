@@ -14,6 +14,16 @@ import com.example.uas_pam.ui.viewmodel.aktivitas.toDetailAktivitasUiEvent
 import kotlinx.coroutines.launch
 
 
+data class DetailPanenUiState(
+    val  detailPnnEvent: InsertPnnUiEvent = InsertPnnUiEvent(),
+    val isLoading: Boolean = false,
+    val isError : Boolean = false,
+    val errorMessage: String = ""
+){
+    val isUiEventNotEmpty: Boolean
+        get() = detailPnnEvent != InsertPnnUiEvent()
+}
+
 fun CatatanPanen.toDetailPanenUiEvent(): InsertPnnUiEvent {
     return InsertPnnUiEvent(
         id_panen = id_panen,
