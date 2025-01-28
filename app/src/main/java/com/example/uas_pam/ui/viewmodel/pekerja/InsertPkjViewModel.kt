@@ -11,6 +11,18 @@ import kotlinx.coroutines.launch
 
 
 
+
+data class InsertPKJUiState(
+    val insertPKJUiEvent: InsertPKJEvent = InsertPKJEvent()
+)
+
+data class InsertPKJEvent(
+    val id_pekerja: String = "",
+    val nama_pekerja: String = "",
+    val jabatan: String = "",
+    val kontak_pekerja: String = "",
+)
+
 fun InsertPKJEvent.toPkj(): Pekerja = Pekerja(
     id_pekerja = id_pekerja,
     nama_pekerja = nama_pekerja,
