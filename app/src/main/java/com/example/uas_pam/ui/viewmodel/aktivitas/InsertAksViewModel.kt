@@ -15,6 +15,29 @@ import com.example.uas_pam.repository.PekerjaRepository
 import com.example.uas_pam.repository.TanamanRepository
 import kotlinx.coroutines.launch
 
+class InsertAksViewModel(
+    private val aks: AktivitasPertanianRepository,
+
+): ViewModel(){
+
+    var aksuiState by mutableStateOf(InsertAksUiState())
+        private set
+
+
+    fun updateInsertAksState(insertAksUiEvent: InsertAksUiEvent){
+        aksuiState = InsertAksUiState(insertAksUiEvent = insertAksUiEvent)
+    }
+
+    suspend fun insertAks(){
+        viewModelScope.launch {
+            try {
+                aks.insertAktivitas(aksuiState.insertAksUiEvent.toAks())
+            }catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+}
 
 data class InsertAksUiState(
     val insertAksUiEvent: InsertAksUiEvent = InsertAksUiEvent()
