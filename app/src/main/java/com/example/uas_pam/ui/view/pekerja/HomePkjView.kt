@@ -61,6 +61,65 @@ import com.example.uas_pam.ui.viewmodel.pekerja.HomePKJUiState
 import com.example.uas_pam.ui.viewmodel.pekerja.HomePKJViewModel
 
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HomePKJScreen(
+    navigateToItemEnty: () -> Unit,
+    modifier: Modifier = Modifier,
+    navigateBack: () -> Unit,
+    onDetailClick: (String) -> Unit = {},
+    onEditClick: (String) -> Unit,
+    viewModel: HomePKJViewModel = viewModel(factory = PenyediaViewModel.Factory)
+){
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
+    Scaffold (
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            CostumeTopAppBar(
+                title = DestinasiHomePekerja.titleRes,
+                canNavigateBack = true,
+                scrollBehavior = scrollBehavior,
+                onRefresh = {
+                    viewModel.getPkj()
+                },
+                navigateUP = navigateBack,
+                subtitle = "Selamat Datang"
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = navigateToItemEnty,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(18.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Add Pekerja"
+                )
+            }
+        }
+    ) {innerPadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ){
+            HomePKJStatus(
+                homePKJUiState = viewModel.pkjUiState,
+                retryAction = { viewModel.getPkj() },
+                onDetailClick = onDetailClick,
+                onDeleteClick = {
+                    viewModel.deletePkj(it.id_pekerja)
+                    viewModel.getPkj()
+                },
+                onEditClick = onEditClick
+            )
+        }
+
+    }
+}
+
 
 @Composable
 fun HomePKJStatus(
