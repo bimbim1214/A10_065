@@ -10,6 +10,16 @@ import com.example.uas_pam.repository.PekerjaRepository
 import kotlinx.coroutines.launch
 
 
+data class DetailPekerjaUiState(
+    val detailPKJEvent: InsertPKJEvent = InsertPKJEvent(),
+    val isLoading: Boolean = false,
+    val isError: Boolean = false,
+    val errorMessage: String = ""
+){
+    val isUiEventNotEmpty: Boolean
+        get() = detailPKJEvent != InsertPKJEvent()
+}
+
 fun Pekerja.toDetailPekerjaUiEvent(): InsertPKJEvent{
     return InsertPKJEvent(
         id_pekerja = id_pekerja,
