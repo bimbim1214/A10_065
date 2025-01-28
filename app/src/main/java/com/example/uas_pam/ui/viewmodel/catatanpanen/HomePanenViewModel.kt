@@ -17,3 +17,35 @@ sealed class HomePanenUiState{
     object Loading : HomePanenUiState()
 }
 
+class HomePanenViewModel(private val pnn: CatatanPanenRepository): ViewModel(){
+    var pnnUiState: HomePanenUiState by mutableStateOf(HomePanenUiState.Loading)
+        private set
+
+    init {
+        getPnn()
+    }
+
+    fun getPnn(){
+        viewModelScope.launch {
+            pnnUiState = HomePanenUiState.Loading
+            pnnUiState = try {
+                HomePanenUiState.Success(pnn.getPanen().data)
+            }catch (e: IOException){
+                HomePanenUiState.Error
+            }catch (e: HttpException){
+                HomePanenUiState.Error
+            }
+        }
+    }
+    fun deletePnn(idPanen: String){
+        viewModelScope.launch {
+            try {
+                pnn.deletePanen(idPanen)
+            }catch (e: IOException){
+                HomePanenUiState.Error
+            }catch (e: HttpException){
+                HomePanenUiState.Error
+            }
+        }
+    }
+}
