@@ -37,7 +37,12 @@ import com.example.uas_pam.ui.viewmodel.PenyediaViewModel
 import com.example.uas_pam.ui.viewmodel.aktivitas.DetailAksViewModel
 import com.example.uas_pam.ui.viewmodel.tanaman.DetailViewModel
 
-
+object DestinasiDetailAktivitas : DestinasiNavigasi {
+    override val route = "detail Aktivitas"
+    override val titleRes = "Detail Aktivitas"
+    const val ID = "id"
+    val routeWithArgs = "$route/{$ID}"
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
