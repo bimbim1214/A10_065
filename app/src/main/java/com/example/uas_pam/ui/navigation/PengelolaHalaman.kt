@@ -178,5 +178,25 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
                 )
             }
         }
+        composable(
+            route = DestinasiUpdatePekerja.routesWithArg,
+            arguments = listOf(
+                navArgument(DestinasiUpdatePekerja.ID) { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments?.getString(DestinasiUpdatePekerja.ID)
+            id?.let {
+                UpdateScreenPekerja(
+                    onBack = { navController.popBackStack() },
+                    onNavigate = {
+                        navController.navigate(DestinasiHomePekerja.route) {
+                            popUpTo(DestinasiHomePekerja.route) { inclusive = true }
+                        }
+                    }
+                )
+            }
+        }
+
+
 
 }
