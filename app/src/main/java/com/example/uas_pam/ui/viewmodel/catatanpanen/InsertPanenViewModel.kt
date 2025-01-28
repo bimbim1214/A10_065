@@ -13,6 +13,7 @@ class InsertPanenViewModel(
     private val pnn: CatatanPanenRepository,
     ): ViewModel(){
 
+
     var pnnuiState by mutableStateOf(InsertPnnUiState())
         private set
 
