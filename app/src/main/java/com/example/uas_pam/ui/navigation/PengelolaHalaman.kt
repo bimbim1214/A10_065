@@ -211,6 +211,16 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
                 navigateBack = {navController.popBackStack()}
             )
         }
+        composable(DestinasiEntryPanen.route) {
+            EntryPnnScreen(navigateBack = {
+                navController.navigate(DestinasiHomePanen.route) {
+                    popUpTo(DestinasiHomePanen.route)
+                    {
+                        inclusive = true
+                    }
+                }
+            })
+        }
 
     }
 }
