@@ -9,6 +9,23 @@ import com.example.uas_pam.model.AktivitasPertanian
 import com.example.uas_pam.repository.AktivitasPertanianRepository
 import kotlinx.coroutines.launch
 
+class DetailAksViewModel (private val aksRepository: AktivitasPertanianRepository) : ViewModel(){
+    var DetailaksuiState by mutableStateOf(DetailAktivitasUiState())
+        private set
+
+    fun fetchDetailAktivitas(idAktivitas: String){
+        viewModelScope.launch {
+            DetailaksuiState = DetailAktivitasUiState(isLoading = true)
+            try {
+                val aktivitas = aksRepository.getAktivitasById(idAktivitas)
+                DetailaksuiState = DetailAktivitasUiState(detailAksEvent = aktivitas.toDetailAktivitasUiEvent())
+            } catch (e: Exception) {
+                e.printStackTrace()
+                DetailaksuiState = DetailAktivitasUiState(isError = true,  errorMessage = "Failes to fetch detail: ${e.message}")
+            }
+        }
+    }
+}
 
 data class DetailAktivitasUiState(
     val  detailAksEvent: InsertAksUiEvent = InsertAksUiEvent(),
