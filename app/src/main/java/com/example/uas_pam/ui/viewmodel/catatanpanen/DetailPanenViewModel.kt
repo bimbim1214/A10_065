@@ -13,6 +13,23 @@ import com.example.uas_pam.ui.viewmodel.aktivitas.DetailAktivitasUiState
 import com.example.uas_pam.ui.viewmodel.aktivitas.toDetailAktivitasUiEvent
 import kotlinx.coroutines.launch
 
+class DetailPanenViewModel (private val pnnRepository: CatatanPanenRepository) : ViewModel(){
+    var DetailPnnUiState by mutableStateOf(DetailPanenUiState())
+        private set
+
+    fun fetchDetailPanen(idPanen: String){
+        viewModelScope.launch {
+            DetailPnnUiState = DetailPanenUiState(isLoading = true)
+            try {
+                val aktivitas = pnnRepository.getPanenById(idPanen)
+                DetailPnnUiState = DetailPanenUiState(detailPnnEvent = aktivitas.toDetailPanenUiEvent())
+            } catch (e: Exception) {
+                e.printStackTrace()
+                DetailPnnUiState = DetailPanenUiState(isError = true,  errorMessage = "Failes to fetch detail: ${e.message}")
+            }
+        }
+    }
+}
 
 data class DetailPanenUiState(
     val  detailPnnEvent: InsertPnnUiEvent = InsertPnnUiEvent(),
