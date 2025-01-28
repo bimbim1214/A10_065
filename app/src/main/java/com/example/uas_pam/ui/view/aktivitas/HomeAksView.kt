@@ -59,6 +59,48 @@ import com.example.uas_pam.ui.viewmodel.tanaman.HomeUiState
 import com.example.uas_pam.ui.viewmodel.tanaman.HomeViewModel
 
 
+@Composable
+fun HomeAksStatus(
+    homeAksUiState: HomeAksUiState,
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier,
+    onDeleteClick: (AktivitasPertanian) -> Unit = {},
+    onDetailClick: (String) -> Unit,
+    onEditClick: (String) -> Unit
+){
+    when (homeAksUiState){
+        is HomeAksUiState.Loading -> com.example.uas_pam.ui.view.tanaman.onLoadinng(modifier = modifier.fillMaxSize())
+
+        is HomeAksUiState.Success ->
+            if (homeAksUiState.aktivitasPertanian.isEmpty()){
+                return Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ){
+                    Text(text = "Tidak ada data Aktivitas")
+                }
+            } else {
+                AksLayout(
+                    aktivitasPertanian = homeAksUiState.aktivitasPertanian,
+                    modifier = modifier
+                        .fillMaxWidth(),
+                    onDetailClick = {
+                        onDetailClick(it.id_aktivitas)
+                    },
+                    onDeleteClick = {
+                        onDeleteClick(it)
+                    },
+                    onEditClick = {
+                        onEditClick(it.id_aktivitas)
+                    }
+                )
+            }
+        is HomeAksUiState.Error -> com.example.uas_pam.ui.view.tanaman.onError(
+            retryAction,
+            modifier = modifier.fillMaxSize()
+        )
+    }
+}
 
 @Composable
 fun onLoadinng(modifier: Modifier = Modifier){
