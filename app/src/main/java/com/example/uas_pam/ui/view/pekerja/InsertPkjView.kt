@@ -32,6 +32,45 @@ import com.example.uas_pam.ui.viewmodel.pekerja.InsertPKJViewModel
 import kotlinx.coroutines.launch
 
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun EntryPkjScreen(
+    navigateBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: InsertPKJViewModel = viewModel(factory = PenyediaViewModel.Factory)
+){
+    val coroutineScope = rememberCoroutineScope()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
+    Scaffold (
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            CostumeTopAppBar(
+                title = DestinasiEntryPekerja.titleRes,
+                canNavigateBack = true,
+                scrollBehavior = scrollBehavior,
+                navigateUP = navigateBack,
+                subtitle = "Selamat Datang"
+            )
+        }
+    ){  innerPadding ->
+        com.example.uas_pam.ui.view.pekerja.EntryBodyPekerja(
+            insertPKJUiState = viewModel.pkjUiState,
+            onPekerjaValueChange = viewModel::updateInsertPkjState,
+            onSaveClick = {
+                coroutineScope.launch {
+                    viewModel.insertPkj()
+                    navigateBack()
+                }
+            },
+            modifier = Modifier
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
+                .fillMaxWidth()
+        )
+    }
+}
+
 @Composable
 fun EntryBodyPekerja(
     insertPKJUiState: InsertPKJUiState,
