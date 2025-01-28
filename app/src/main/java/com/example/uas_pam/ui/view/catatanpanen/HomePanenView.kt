@@ -53,6 +53,49 @@ import com.example.uas_pam.ui.viewmodel.catatanpanen.HomePanenViewModel
 
 
 @Composable
+fun HomePnnStatus(
+    homePanenUiState: HomePanenUiState,
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier,
+    onDeleteClick: (CatatanPanen) -> Unit = {},
+    onDetailClick: (String) -> Unit,
+    onEditClick: (String) -> Unit
+){
+    when (homePanenUiState){
+        is HomePanenUiState.Loading -> com.example.uas_pam.ui.view.tanaman.onLoadinng(modifier = modifier.fillMaxSize())
+
+        is HomePanenUiState.Success ->
+            if (homePanenUiState.catatanPanen.isEmpty()){
+                return Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ){
+                    Text(text = "Tidak ada data Aktivitas")
+                }
+            } else {
+                PnnLayout(
+                    catatanPanen = homePanenUiState.catatanPanen,
+                    modifier = modifier
+                        .fillMaxWidth(),
+                    onDetailClick = {
+                        onDetailClick(it.id_panen)
+                    },
+                    onDeleteClick = {
+                        onDeleteClick(it)
+                    },
+                    onEditClick = {
+                        onEditClick(it.id_panen)
+                    }
+                )
+            }
+        is HomePanenUiState.Error -> com.example.uas_pam.ui.view.tanaman.onError(
+            retryAction,
+            modifier = modifier.fillMaxSize()
+        )
+    }
+}
+
+@Composable
 fun onLoadinng(modifier: Modifier = Modifier){
     Image(
         modifier = modifier.size(100.dp),
