@@ -39,6 +39,13 @@ object PenyediaViewModel {
             UpdateViewModelPekerja(createSavedStateHandle(), aplikasiKebun().container.pekerjaRepository)
         }
 
+        initializer { HomeAksViewModel(aplikasiKebun().container.aktivitasPertanianRepository) }
+        initializer { InsertAksViewModel(aplikasiKebun().container.aktivitasPertanianRepository )}
+        initializer { DetailAksViewModel(aplikasiKebun().container.aktivitasPertanianRepository) }
+        initializer {
+            UpdateViewModelAks(createSavedStateHandle(), aplikasiKebun().container.aktivitasPertanianRepository)
+        }
+
 
     }
 }
