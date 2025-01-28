@@ -17,3 +17,35 @@ sealed class HomePKJUiState{
     object Loading: HomePKJUiState()
 }
 
+class HomePKJViewModel(private  val pkj: PekerjaRepository): ViewModel(){
+    var pkjUiState: HomePKJUiState by mutableStateOf(HomePKJUiState.Loading)
+        private set
+
+    init {
+        getPkj()
+    }
+
+    fun getPkj(){
+        viewModelScope.launch {
+            pkjUiState = HomePKJUiState.Loading
+            pkjUiState = try {
+                HomePKJUiState.Success(pkj.getPekerja().data)
+            }catch (e: IOException){
+                HomePKJUiState.Error
+            }catch (e: HttpException){
+                HomePKJUiState.Error
+            }
+        }
+    }
+    fun deletePkj(idpekerja: String){
+        viewModelScope.launch {
+            try {
+                pkj.deletePekerja(idpekerja)
+            }catch (e: IOException){
+                HomePKJUiState.Error
+            }catch (e: HttpException){
+                HomePKJUiState.Error
+            }
+        }
+    }
+}
