@@ -22,3 +22,19 @@ object TanamanList {
     }
 }
 
+object PekerjaList {
+    @Composable
+    fun DataNamaPekerja(
+        pekerjaViewModel: HomePKJViewModel = viewModel(factory = PenyediaViewModel.Factory) // Menggunakan HomePKJViewModel
+    ): List<Pair<String, String>> {
+        val pkjUiState = pekerjaViewModel.pkjUiState // Ambil state dari HomePKJViewModel
+        return when (pkjUiState) {
+            is HomePKJUiState.Success ->
+                pkjUiState.pekerja.map { it.id_pekerja to it.nama_pekerja } // Map ID dan Nama Pekerja
+            is HomePKJUiState.Loading ->
+                emptyList() // Saat loading, kembalikan list kosong
+            is HomePKJUiState.Error ->
+                emptyList() // Saat error, kembalikan list kosong
+        }
+    }
+}
