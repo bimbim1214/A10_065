@@ -10,6 +10,14 @@ import com.example.uas_pam.repository.PekerjaRepository
 import kotlinx.coroutines.launch
 
 
+
+fun InsertPKJEvent.toPkj(): Pekerja = Pekerja(
+    id_pekerja = id_pekerja,
+    nama_pekerja = nama_pekerja,
+    jabatan = jabatan,
+    kontak_pekerja = kontak_pekerja
+)
+
 fun Pekerja.toUiStatePkj(): InsertPKJUiState = InsertPKJUiState(
     insertPKJUiEvent = toInsertPekerjaUiEvent()
 )
