@@ -26,6 +26,46 @@ import kotlinx.coroutines.launch
 import com.example.uas_pam.R
 
 
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun EntryAksScreen(
+    navigateBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: InsertAksViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val coroutineScope = rememberCoroutineScope()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
+    Scaffold(
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            CostumeTopAppBar(
+                title = DestinasiEntryAktivitas.titleRes,
+                canNavigateBack = true,
+                scrollBehavior = scrollBehavior,
+                navigateUP = navigateBack,
+                subtitle = "Selamat Datang"
+            )
+        }
+    ) { innerPadding ->
+        EntryBodyAks(
+            insertAksUiState = viewModel.aksuiState,
+            onAktivitasValueChange = viewModel::updateInsertAksState,
+            onSaveClick = {
+                coroutineScope.launch {
+                    viewModel.insertAks()
+                    navigateBack()
+                }
+            },
+            modifier = Modifier
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
+                .fillMaxWidth()
+        )
+    }
+}
+
 @Composable
 fun EntryBodyAks(
     insertAksUiState: InsertAksUiState,
