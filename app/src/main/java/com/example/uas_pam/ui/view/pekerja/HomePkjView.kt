@@ -60,6 +60,10 @@ import com.example.uas_pam.ui.viewmodel.PenyediaViewModel
 import com.example.uas_pam.ui.viewmodel.pekerja.HomePKJUiState
 import com.example.uas_pam.ui.viewmodel.pekerja.HomePKJViewModel
 
+object DestinasiHomePekerja : DestinasiNavigasi {
+    override val route = "home_Pekerja"
+    override val titleRes = "Home Pekerja"
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
