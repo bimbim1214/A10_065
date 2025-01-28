@@ -26,3 +26,17 @@ class UpdateViewModelPekerja (
         }
     }
 
+    fun updateInsertPkjState(insertPKJEvent: InsertPKJEvent){
+        updatePKJUiState = InsertPKJUiState(insertPKJUiEvent = insertPKJEvent)
+    }
+
+    suspend fun updatePkj(){
+        viewModelScope.launch {
+            try {
+                pekerjaRepository.updatePekerja(idPkj, updatePKJUiState.insertPKJUiEvent.toPkj())
+            }catch (e: Exception){
+                e.printStackTrace()
+            }
+        }
+    }
+}
