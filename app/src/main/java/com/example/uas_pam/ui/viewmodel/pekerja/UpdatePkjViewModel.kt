@@ -17,5 +17,7 @@ class UpdateViewModelPekerja (
     var updatePKJUiState by mutableStateOf(InsertPKJUiState())
         private set
 
+    private val idPkj: String = checkNotNull(savedStateHandle[DestinasiUpdatePekerja.ID])
+
 
 }
