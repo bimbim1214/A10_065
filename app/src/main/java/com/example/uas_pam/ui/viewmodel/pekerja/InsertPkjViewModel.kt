@@ -9,6 +9,24 @@ import com.example.uas_pam.model.Pekerja
 import com.example.uas_pam.repository.PekerjaRepository
 import kotlinx.coroutines.launch
 
+class InsertPKJViewModel(private val pkj: PekerjaRepository): ViewModel(){
+    var pkjUiState by mutableStateOf(InsertPKJUiState())
+        private set
+
+    fun updateInsertPkjState(insertPKJUiEvent: InsertPKJEvent){
+        pkjUiState = InsertPKJUiState(insertPKJUiEvent = insertPKJUiEvent)
+    }
+
+    suspend fun insertPkj(){
+        viewModelScope.launch {
+            try {
+                pkj.insertPekerja(pkjUiState.insertPKJUiEvent.toPkj())
+            }catch (e: Exception){
+                e.printStackTrace()
+            }
+        }
+    }
+}
 
 
 
