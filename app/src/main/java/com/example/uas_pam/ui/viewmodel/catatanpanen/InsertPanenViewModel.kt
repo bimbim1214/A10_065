@@ -10,6 +10,10 @@ import com.example.uas_pam.repository.CatatanPanenRepository
 import kotlinx.coroutines.launch
 
 
+fun CatatanPanen.toUiStatePnn(): InsertPnnUiState = InsertPnnUiState(
+    insertPnnUiEvent = toInsertPanenUiEvent()
+)
+
 fun CatatanPanen.toInsertPanenUiEvent(): InsertPnnUiEvent = InsertPnnUiEvent(
     id_panen = id_panen,
     id_tanaman = id_tanaman,
