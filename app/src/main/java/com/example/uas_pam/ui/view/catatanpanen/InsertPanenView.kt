@@ -32,6 +32,75 @@ import com.example.uas_pam.ui.viewmodel.catatanpanen.InsertPnnUiEvent
 import com.example.uas_pam.ui.viewmodel.catatanpanen.InsertPnnUiState
 import kotlinx.coroutines.launch
 
+object DestinasiEntryPanen: DestinasiNavigasi {
+    override val route = "itemn Panen"
+    override val titleRes = "Form Panen"
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun EntryPnnScreen(
+    navigateBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: InsertPanenViewModel = viewModel(factory = PenyediaViewModel.Factory)
+){
+    val coroutineScope = rememberCoroutineScope()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
+    Scaffold (
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            CostumeTopAppBar(
+                title = DestinasiEntryPanen.titleRes,
+                canNavigateBack = true,
+                scrollBehavior = scrollBehavior,
+                navigateUP = navigateBack,
+                subtitle = "Selamat Datang"
+            )
+        }
+    ){  innerPadding ->
+        EntryBodyPanen(
+            insertPnnUiState = viewModel.pnnuiState,
+            onPanenValueChange = viewModel::updateInsertPanenState,
+            onSaveClick = {
+                coroutineScope.launch {
+                    viewModel.insertPnn()
+                    navigateBack()
+                }
+            },
+            modifier = Modifier
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
+                .fillMaxWidth()
+        )
+    }
+}
+
+@Composable
+fun EntryBodyPanen(
+    insertPnnUiState: InsertPnnUiState,
+    onPanenValueChange: (InsertPnnUiEvent) -> Unit,
+    onSaveClick: () -> Unit,
+    modifier: Modifier = Modifier
+){
+    Column (
+        verticalArrangement = Arrangement.spacedBy(18.dp),
+        modifier = modifier.padding(12.dp)
+    ){
+        FormInputPanen(
+            insertPnnUiEvent = insertPnnUiState.insertPnnUiEvent,
+            onValueChange = onPanenValueChange,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Button(
+            onClick = onSaveClick,
+            shape = MaterialTheme.shapes.small,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = "Simpan")
+        }
+    }
+}
 
 @Composable
 fun FormInputPanen(
