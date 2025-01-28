@@ -32,6 +32,14 @@ object PenyediaViewModel {
             UpdateTnmViewModel(createSavedStateHandle(), aplikasiKebun().container.tanamanRepository)
         }
 
+        initializer { HomePKJViewModel(aplikasiKebun().container.pekerjaRepository) }
+        initializer { InsertPKJViewModel(aplikasiKebun().container.pekerjaRepository) }
+        initializer { DetailPKJViewModel(aplikasiKebun().container.pekerjaRepository) }
+        initializer {
+            UpdateViewModelPekerja(createSavedStateHandle(), aplikasiKebun().container.pekerjaRepository)
+        }
+
+
     }
 }
 
