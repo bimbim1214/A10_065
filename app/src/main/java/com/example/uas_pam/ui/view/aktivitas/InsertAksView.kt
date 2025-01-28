@@ -25,7 +25,10 @@ import com.example.uas_pam.ui.viewmodel.aktivitas.InsertAksViewModel
 import kotlinx.coroutines.launch
 import com.example.uas_pam.R
 
-
+object DestinasiEntryAktivitas : DestinasiNavigasi {
+    override val route = "item_Aktivitas"
+    override val titleRes = "Form Aktivitas"
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
