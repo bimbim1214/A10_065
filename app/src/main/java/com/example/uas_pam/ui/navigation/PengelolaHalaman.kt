@@ -129,6 +129,20 @@ fun PengelolaHalaman(navController: NavHostController = rememberNavController())
             }
         }
 
+        //Pengelola Halaman Pekerja
+        composable(
+            route = DestinasiHomePekerja.route
+        ) {
+            HomePKJScreen(
+                navigateToItemEnty = {navController.navigate(DestinasiEntryPekerja.route)},
+                onDetailClick = {
+                    navController.navigate("${DestinasiDetailPekerja.route}/$it")
+ //                   println("PengelolaHalaman: id = $id")
+                },
+                onEditClick = {navController.navigate("${DestinasiUpdatePekerja.route}/$it")},
+                modifier = Modifier,
+                navigateBack = {navController.popBackStack()},
+            )
+        }
 
-    }
 }
